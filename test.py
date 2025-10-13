@@ -106,13 +106,16 @@ def classify_medical_image_frame(model, preprocess, tokenizer, image, modality, 
 
 # 使用示例
 if __name__ == "__main__":
-    video_path = 'G:\\ML_DATA\\4ch视频二分类数据集\\4ch_binary_dataset_b_mode\\normal\\1.avi'
 
-    try:
-        result = classify_video_frame(video_path, modality='ultrasound', frame_time=2)
-        print("分类结果: " + result['prediction'])
-        print("正常概率: %.3f" % result['normal_probability'])
-        print("异常概率: %.3f" % result['abnormal_probability'])
-        print("置信度: %.3f" % result['confidence'])
-    except Exception as e:
-        print("处理视频时出错: " + str(e))
+    for i in range(1, 112):
+        video_path = 'G:\\ML_DATA\\4ch视频二分类数据集\\4ch_binary_dataset_b_mode\\normal\\' + str(i) + '.avi'
+
+        try:
+            result = classify_video_frame(video_path, modality='ultrasound', frame_time=2)
+            if result['prediction'] == 'abnormal' :
+                print(str(i) + "分类结果: " + result['prediction'])
+                print(str(i) + "正常概率: %.3f" % result['normal_probability'])
+                print(str(i) + "异常概率: %.3f" % result['abnormal_probability'])
+                print(str(i) + "置信度: %.3f" % result['confidence'])
+        except Exception as e:
+            print("处理视频时出错: " + str(e))
