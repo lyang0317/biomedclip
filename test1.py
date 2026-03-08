@@ -43,6 +43,11 @@ def classify_medical_image_frame(model, preprocess, tokenizer, image, modality, 
         'unremarkable ' + modality + ' finding',
         'no abnormality in this ' + modality,
         'normal findings in ' + modality
+        #"homogeneous echotexture",
+        #"well-defined margins",
+        #"normal size and shape",
+        #"typical echogenicity",
+        #"clear anatomical boundaries"
     ]
 
     abnormal_prompts = [
@@ -51,6 +56,14 @@ def classify_medical_image_frame(model, preprocess, tokenizer, image, modality, 
         'abnormal finding in ' + modality,
         'diseased ' + modality + ' image',
         modality + ' showing pathology'
+        #"heterogeneous echotexture",
+        #"irregular margins",
+        #"mass effect",
+        #"abnormal echogenicity",
+        #"loss of normal architecture"
+        #"cystic lesion",
+        #"solid mass",
+        #"calcification with shadowing"
     ]
 
     # 预处理图像
@@ -101,6 +114,10 @@ def batch_classify_videos(folder_path, modality='ultrasound', frame_time=2, outp
     print("正在加载 BioMedCLIP 模型...")
     model, preprocess = create_model_from_pretrained('hf-hub:microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224')
     tokenizer = get_tokenizer('hf-hub:microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224')
+
+    # 加载微调后的权重
+    #checkpoint = torch.load(model_path, map_location='cpu')
+    #model.load_state_dict(checkpoint['model_state_dict'])
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     model.to(device)
@@ -250,7 +267,7 @@ def process_separate_folders():
 # 使用示例
 if __name__ == "__main__":
     # 设置视频文件夹路径
-    video_folder = 'G:\\ML_DATA\\4ch视频二分类数据集\\4ch_binary_dataset_b_mode\\normal'
+    video_folder = 'F:\\swpu\\ML_DATA\\4ch视频二分类数据集\\4ch_binary_dataset_b_mode\\abnormal'
 
     # 设置输出文件（可选）
     output_csv = 'classification_results.csv'
