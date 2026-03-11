@@ -190,9 +190,9 @@ class ContrastiveTrainer:
             text_tokens = self.tokenizer(
                 texts,
                 context_length=256,
-                truncation=True,
-                padding='max_length',
-                return_tensors='pt'
+                #truncation=True,
+                #padding='max_length',
+                #return_tensors='pt'
             ).to(self.device)
 
             # 前向传播
@@ -243,9 +243,9 @@ class ContrastiveTrainer:
             text_tokens = self.tokenizer(
                 all_texts,
                 context_length=256,
-                truncation=True,
-                padding='max_length',
-                return_tensors='pt'
+                #truncation=True,
+                #padding='max_length',
+                #return_tensors='pt'
             ).to(self.device)
 
             text_features = self.model.encode_text(
@@ -315,7 +315,7 @@ def main_contrastive_training():
     """主训练函数"""
 
     # 配置
-    data_folder = 'G:\\ML_DATA\\4ch视频二分类数据集\\4ch_binary_dataset_b_mode'
+    data_folder = 'F:\\swpu\\ML_DATA\\4ch视频二分类数据集\\4ch_binary_dataset_b_mode_train'
     batch_size = 8
     epochs = 20
     learning_rate = 1e-5
